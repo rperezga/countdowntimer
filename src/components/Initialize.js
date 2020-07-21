@@ -21,7 +21,6 @@ class Initialize extends React.Component {
     handleStart = () => {
         this.setState({ started: true })
         this.props.handleInitializeTimer(this.state.minutes)
-        console.log('Tengo que empezar a contar')
     }
 
     handleClear = () => {
@@ -29,13 +28,13 @@ class Initialize extends React.Component {
             startBtnDisabled: true,
             started: false,
             minutes: ''
-        })
+        }, () => this.props.handleResetTimer())
     }
 
     render() {
         return (
             <div>
-                <div style={{ marginTop: 30 }}>
+                <div>
                     <label style={{ fontSize: 22 }}><strong>Countdown: </strong></label>
                     <input
                         id='minutes'

@@ -4,7 +4,7 @@ import Initialize from './Initialize';
 import Description from './Description';
 import Timer from './Timer';
 import Action from './Action';
-
+import Speed from './Speed';
 
 class Main extends React.Component {
 
@@ -15,13 +15,11 @@ class Main extends React.Component {
             running: false,            
             minutes: 0,
             seconds:0,
-            stateDescription: 'More than halfway there!',
 
             totalSeconds: 0,
             remainingSeconds: 0,
 
             speed: 1000
-
         };
     }
 
@@ -55,6 +53,9 @@ class Main extends React.Component {
                     }))
                 }
             }
+            this.setState({
+                remainingSeconds: this.state.remainingSeconds - 1
+            })
         }, this.state.speed )
     }
 
@@ -64,17 +65,50 @@ class Main extends React.Component {
         })
     }
 
+    handleSpeedChange = (speed) => {
+        this.setState({ speed }, () => {
+            clearInterval(this.myInterval)
+            this.handleStart()
+        })
+    }
+
+    resetTimer = () => {
+        this.setState({ 
+            started: false,
+            running: false,            
+            minutes: 0,
+            seconds:0,
+
+            totalSeconds: 0,
+            remainingSeconds: 0,
+
+            speed: 1000
+         }, () => {
+            clearInterval(this.myInterval)
+        })
+    }
+
     render() {
         return (
             <React.Fragment>
-                <Initialize handleInitializeTimer={this.initializeTimer.bind(this)} />
-                <Description data={{ text: this.state.stateDescription }} />
+                <Initialize 
+                    handleInitializeTimer={this.initializeTimer.bind(this)} 
+                    handleResetTimer={this.resetTimer.bind(this)} 
+                />
+                <Description 
+                    data={{ 
+                        totalSeconds: this.state.totalSeconds,
+                        remainingSeconds: this.state.remainingSeconds
+                    }} 
+                />
                 <div className='container'>
-                    <div className="row">
-                        <div className="col-9" style={{ textAlign: 'right' }}>
-                            <Timer data={{ minutes: this.state.minutes, seconds: this.state.seconds }} />                            
+                    <div className='row'>
+                        <div className='col-8' style={{ textAlign: 'right' }}>
+                            <Timer 
+                                data={{ minutes: this.state.minutes, seconds: this.state.seconds }} 
+                            />                            
                         </div>
-                        <div className="col-3" style={{ marginTop: 60, textAlign: 'left', paddingLeft: 50 }}>
+                        <div className='col-4' style={{ marginTop: 80, textAlign: 'left', paddingLeft: 50 }}>
                             <Action 
                                 data={{ started: this.state.started, running: this.state.running }}
                                 handleActionStart={this.handleStart.bind(this)}
@@ -83,7 +117,10 @@ class Main extends React.Component {
                         </div>
                     </div>
                 </div>
-                
+                <Speed 
+                    data={{ running: this.state.running, speed: this.state.speed }} 
+                    handleChangeSpeed={this.handleSpeedChange.bind(this)}
+                />
                 
             </React.Fragment>
         )

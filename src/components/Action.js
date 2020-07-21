@@ -1,10 +1,9 @@
 import React from 'react';
-import { RiPauseCircleLine, RiPlayCircleLine } from "react-icons/ri";
+import { RiPauseCircleLine, RiPlayCircleLine } from 'react-icons/ri';
 
 class Action extends React.Component {
 
     render() {
-        console.log(this.props.data)
         return (
             <React.Fragment>
                 {this.props.data.started ?
