@@ -20,6 +20,7 @@ class Initialize extends React.Component {
 
     handleStart = () => {
         this.setState({ started: true })
+        this.props.handleInitializeTimer(this.state.minutes)
         console.log('Tengo que empezar a contar')
     }
 
