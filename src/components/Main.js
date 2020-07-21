@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Initialize from './Initialize';
+import Description from './Description';
 
 
 
@@ -13,7 +14,12 @@ class Main extends React.Component {
             disabled: true,
             
             minutes: 0,
-            seconds: 0
+            seconds: 0,
+            stateDescription: 'More than halfway there!',
+
+            totalSeconds: 0,
+            remainingSeconds: 0
+
         };
     }
 
@@ -21,6 +27,7 @@ class Main extends React.Component {
         return (
             <React.Fragment>
                 <Initialize />
+                <Description data={{ text: this.state.stateDescription }} />
             </React.Fragment>
         )
     }
