@@ -35,20 +35,20 @@ class Initialize extends React.Component {
         return (
             <div>
                 <div>
-                    <label style={{ fontSize: 22 }}><strong>Countdown: </strong></label>
+                    <label style={countLabel}><strong>Countdown: </strong></label>
                     <input
                         id='minutes'
                         type='number'
                         placeholder='(Min)'
                         value={this.state.minutes}
-                        style={{ marginLeft: 30, fontSize: 22, width: 140 }}
+                        style={minTxt}
                         onChange={this.handleChange}
                     />
                     {this.state.started ?
                         <button
                             type='button'
                             className='btn btn-danger'
-                            style={{ marginLeft: 30, marginTop: -10, width: 80 }}
+                            style={clearBtn}
                             onClick={this.handleClear}
                         >
                             CLEAR
@@ -57,7 +57,7 @@ class Initialize extends React.Component {
                         <button
                             type='button'
                             className='btn btn-success'
-                            style={{ marginLeft: 30, marginTop: -10, width: 80 }}
+                            style={startBtn}
                             disabled={this.state.startBtnDisabled}
                             onClick={this.handleStart}
                         >
@@ -71,5 +71,24 @@ class Initialize extends React.Component {
 }
 
 export default Initialize;
+
+const countLabel = {
+    fontSize: 22
+}
+const minTxt = {
+    marginLeft: 30, 
+    fontSize: 22, 
+    width: 140
+}
+const clearBtn = {
+    marginLeft: 30, 
+    marginTop: -10, 
+    width: 80
+}
+const startBtn = {
+    marginLeft: 30, 
+    marginTop: -10, 
+    width: 80
+}
 
 

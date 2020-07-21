@@ -12,9 +12,9 @@ class Main extends React.Component {
         super();
         this.state = {
             started: false,
-            running: false,            
+            running: false,
             minutes: 0,
-            seconds:0,
+            seconds: 0,
 
             totalSeconds: 0,
             remainingSeconds: 0,
@@ -34,19 +34,23 @@ class Main extends React.Component {
         this.handleStart()
     }
 
+    // To handle the countdown timer
     handleStart = () => {
         this.setState({ running: true })
         this.myInterval = setInterval(() => {
             const { seconds, minutes } = this.state
             if (seconds > 0) {
+                // Decrement seconds
                 this.setState(({ seconds }) => ({
                     seconds: seconds - 1
                 }))
             }
             if (seconds === 0) {
                 if (minutes === 0) {
+                    // Clear my interval when timer get 0
                     clearInterval(this.myInterval)
                 } else {
+                    // Decrement minutes when seconds get 0
                     this.setState(({ minutes }) => ({
                         minutes: minutes - 1,
                         seconds: 59
@@ -56,16 +60,18 @@ class Main extends React.Component {
             this.setState({
                 remainingSeconds: this.state.remainingSeconds - 1
             })
-        }, this.state.speed )
+        }, this.state.speed)
     }
 
     handlePause = () => {
+        // Clear interval when Pause button push
         this.setState({ running: false }, () => {
             clearInterval(this.myInterval)
         })
     }
 
     handleSpeedChange = (speed) => {
+        // Change my speed countdown
         this.setState({ speed }, () => {
             clearInterval(this.myInterval)
             this.handleStart()
@@ -73,17 +79,17 @@ class Main extends React.Component {
     }
 
     resetTimer = () => {
-        this.setState({ 
+        this.setState({
             started: false,
-            running: false,            
+            running: false,
             minutes: 0,
-            seconds:0,
+            seconds: 0,
 
             totalSeconds: 0,
             remainingSeconds: 0,
 
             speed: 1000
-         }, () => {
+        }, () => {
             clearInterval(this.myInterval)
         })
     }
@@ -91,25 +97,25 @@ class Main extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Initialize 
-                    handleInitializeTimer={this.initializeTimer.bind(this)} 
-                    handleResetTimer={this.resetTimer.bind(this)} 
+                <Initialize
+                    handleInitializeTimer={this.initializeTimer.bind(this)}
+                    handleResetTimer={this.resetTimer.bind(this)}
                 />
-                <Description 
-                    data={{ 
+                <Description
+                    data={{
                         totalSeconds: this.state.totalSeconds,
                         remainingSeconds: this.state.remainingSeconds
-                    }} 
+                    }}
                 />
                 <div className='container'>
                     <div className='row'>
-                        <div className='col-8' style={{ textAlign: 'right' }}>
-                            <Timer 
-                                data={{ minutes: this.state.minutes, seconds: this.state.seconds }} 
-                            />                            
+                        <div className='col-8' style={leftCol}>
+                            <Timer
+                                data={{ minutes: this.state.minutes, seconds: this.state.seconds }}
+                            />
                         </div>
-                        <div className='col-4' style={{ marginTop: 80, textAlign: 'left', paddingLeft: 50 }}>
-                            <Action 
+                        <div className='col-4' style={rightCol}>
+                            <Action
                                 data={{ started: this.state.started, running: this.state.running }}
                                 handleActionStart={this.handleStart.bind(this)}
                                 handleActionPause={this.handlePause.bind(this)}
@@ -117,11 +123,11 @@ class Main extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Speed 
-                    data={{ running: this.state.running, speed: this.state.speed }} 
+                <Speed
+                    data={{ running: this.state.running, speed: this.state.speed }}
                     handleChangeSpeed={this.handleSpeedChange.bind(this)}
                 />
-                
+
             </React.Fragment>
         )
     }
@@ -129,8 +135,11 @@ class Main extends React.Component {
 
 export default Main;
 
-
-
-
-
-
+const leftCol = {
+    textAlign: 'right'
+}
+const rightCol = {
+    marginTop: 80,
+    textAlign: 'left',
+    paddingLeft: 50
+}

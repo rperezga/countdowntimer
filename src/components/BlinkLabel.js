@@ -12,6 +12,7 @@ class BlinkLable extends React.Component {
     }
 
     componentDidMount() {
+        // Make it blink every 500 miliseconds
         setInterval(this.toShow, 500)
     }
 
@@ -24,9 +25,9 @@ class BlinkLable extends React.Component {
         return (
             <div>
                 {(this.state.showlabel) ?
-                    <h4 style={{ marginTop: 30, fontStyle: 'italic', color: 'red' }}>More than halfway there!</h4>
+                    <h4 style={redLabel}>{this.state.label}</h4>
                     :
-                    <h4 style={{ marginTop: 30, fontStyle: 'italic', color: '#282c34' }}>More than halfway there!</h4>}
+                    <h4 style={transLabel}>{this.state.label}</h4>}
             </div>
         );
     }
@@ -34,3 +35,16 @@ class BlinkLable extends React.Component {
 }
 
 export default BlinkLable;
+
+const redLabel = {
+    marginTop: 30, 
+    fontStyle: 'italic', 
+    color: 'red'
+}
+
+const transLabel = {
+    marginTop: 30, 
+    fontStyle: 'italic', 
+    // Same color as background to make it invisible
+    color: '#282c34'
+}

@@ -1,29 +1,40 @@
 import React from 'react';
 import { RiPauseCircleLine, RiPlayCircleLine } from 'react-icons/ri';
 
-class Action extends React.Component {
+function Action(props) {
 
-    render() {
-        return (
-            <React.Fragment>
-                {this.props.data.started ?
-                    <>
-                        {this.props.data.running ?
-                            <RiPauseCircleLine
-                                style={{ fontSize: 100, color: '#FABCA2' }}
-                                onClick={() => this.props.handleActionPause()}
-                            />
-                            :
-                            <RiPlayCircleLine
-                                style={{ fontSize: 100, color: '#C0FAA2' }}
-                                onClick={() => this.props.handleActionStart()}
-                            />
-                        }
-                    </>
-                    : null}
-            </React.Fragment>
-        )
-    }
+    return (
+        <React.Fragment>
+            {props.data.started ?
+                // If already start my countdown show Play / Pause button
+                <>
+                    {props.data.running ?
+                        <RiPauseCircleLine
+                            style={pauseBtn}
+                            onClick={() => props.handleActionPause()}
+                        />
+                        :
+                        <RiPlayCircleLine
+                            style={playBtn}
+                            onClick={() => props.handleActionStart()}
+                        />
+                    }
+                </>
+                : null
+            }
+        </React.Fragment>
+    )
+
 }
 
 export default Action;
+
+const pauseBtn = {
+    fontSize: 100, 
+    color: '#FABCA2'
+}
+
+const playBtn = {
+    fontSize: 100, 
+    color: '#C0FAA2'
+}

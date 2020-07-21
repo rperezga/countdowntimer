@@ -3,7 +3,7 @@ import React from 'react';
 function Timer(props) {
     const { minutes, seconds } = props.data
     return (
-        <label style={{ fontSize: 200, marginTop: -30 }}>
+        <label style={timerLabel}>
             <strong>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</strong>
         </label>
     );
@@ -11,8 +11,7 @@ function Timer(props) {
 
 export default Timer;
 
-
-
-
-
-
+const timerLabel = {
+    fontSize: 200, 
+    marginTop: -30
+}
